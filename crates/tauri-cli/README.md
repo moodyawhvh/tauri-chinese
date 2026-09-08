@@ -1,3 +1,5 @@
+> 🌐 本文档由 [tauri-apps/tauri](https://github.com/tauri-apps/tauri) 翻译,英文原版见原项目。
+
 # Tauri CLI
 
  <img align="right" src="https://github.com/tauri-apps/tauri/raw/dev/.github/icon.png" height="128" width="128">
@@ -11,32 +13,32 @@
 [![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
 [![support](https://img.shields.io/badge/sponsor-Open%20Collective-blue.svg)](https://opencollective.com/tauri)
 
-| Component | Version                                                                                                |
+| 组件      | 版本                                                                                                   |
 | --------- | ------------------------------------------------------------------------------------------------------ |
 | tauri-cli | [![](https://img.shields.io/crates/v/tauri-cli?style=flat-square)](https://crates.io/crates/tauri-cli) |
 
-## About Tauri
+## 关于 Tauri
 
-Tauri is a polyglot and generic system that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for Desktop Computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API / Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
+Tauri 是一个多语言、通用的系统,组合性极强,可以让工程师构建种类繁多的应用。它将 Rust 工具与渲染在 WebView 中的 HTML 相结合,用于构建桌面应用程序。用 Tauri 构建的应用可以附带任意数量的可选 JS API / Rust API 组件,使 WebView 能够通过消息传递来控制系统。事实上,开发者可以用自己的功能扩展默认 API,轻松打通 WebView 与基于 Rust 的后端。
 
-Tauri apps can have custom menus and have tray-type interfaces. They can be updated, and are managed by the user's operating system as expected. They are very small, because they use the system's webview. They do not ship a runtime, since the final binary is compiled from rust. This makes the reversing of Tauri apps not a trivial task.
+Tauri 应用可以拥有自定义菜单和托盘类界面。它们可以被更新,并由用户操作系统按预期方式进行管理。它们体积非常小,因为使用的是系统自带的 WebView。它们不附带运行时,因为最终二进制由 Rust 编译而成。这也使得对 Tauri 应用的逆向并非易事。
 
-## This module
+## 本模块
 
-This rust executable provides the full interface to all of the required activities for which the CLI is required. It will run on macOS, Windows, and Linux.
+这个 Rust 可执行程序为 CLI 所需的全部操作提供完整接口。它可运行于 macOS、Windows 和 Linux。
 
-To learn more about the details of how all of these pieces fit together, please consult this [ARCHITECTURE.md](https://github.com/tauri-apps/tauri/blob/dev/ARCHITECTURE.md) document.
+要深入了解各部分如何协同工作,请查阅 [ARCHITECTURE.md](https://github.com/tauri-apps/tauri/blob/dev/ARCHITECTURE.md) 文档。
 
-## Semver
+## 语义化版本
 
-**tauri** is following [Semantic Versioning 2.0](https://semver.org/).
+**tauri** 遵循[语义化版本 2.0](https://semver.org/)。
 
-## Licenses
+## 许可证
 
-Code: (c) 2015 - 2021 - The Tauri Programme within The Commons Conservancy.
+代码:(c) 2015 - 2021 - The Tauri Programme within The Commons Conservancy。
 
-MIT or MIT/Apache 2.0 where applicable.
+适用范围内采用 MIT 或 MIT/Apache 2.0 双许可。
 
-Logo: CC-BY-NC-ND
+Logo:CC-BY-NC-ND
 
-- Original Tauri Logo Designs by [Daniel Thompson-Yvetot](https://github.com/nothingismagick) and [Guillaume Chau](https://github.com/akryum)
+- Tauri 原始 Logo 设计:[Daniel Thompson-Yvetot](https://github.com/nothingismagick) 和 [Guillaume Chau](https://github.com/akryum)
