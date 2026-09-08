@@ -1,86 +1,52 @@
+> 🌐 本文档由 [tauri-apps/tauri](https://github.com/tauri-apps/tauri) 翻译,英文原版见原项目。
+
 # Tauri Bundler
 
-Wrap Rust executables in OS-specific app bundles.
+将 Rust 可执行文件封装为特定操作系统的应用包。
 
-## About
+## 关于
 
-This is a fork of the awesome [cargo-bundle](https://github.com/burtonageo/cargo-bundle), turned into a library used by the [Tauri CLI](../tauri-cli).
+本项目是出色的 [cargo-bundle](https://github.com/burtonageo/cargo-bundle) 的一个分支,改造为库后供 [Tauri CLI](../tauri-cli) 使用。
 
-### Stability
+### 稳定性
 
-As it's intended to be used primarily in `tauri-cli`, the public API does not strictly adhere to SemVer. For example, minor releases may add new struct fields and change or remove Error enum variants.
+由于它主要供 `tauri-cli` 使用,其公开 API 并不严格遵循 SemVer。例如,minor 版本发布可能会新增结构体字段,或修改、删除 Error 枚举变体。
 
-## Configuration
+## 配置
 
-Tauri automatically loads configurations from the `tauri.conf.json > bundle` object, but this library doesn't rely on it and can be used by non-Tauri apps.
+Tauri 会自动从 `tauri.conf.json > bundle` 对象加载配置,但本库并不依赖它,非 Tauri 应用也可以使用。
 
-### General settings
+### 通用设置
 
-These settings apply to bundles for all (or most) OSes.
+这些设置适用于所有(或大多数)操作系统的打包。
 
-- `name`: The name of the built application. If this is not present, then it will use the `name` value from
-  your `Cargo.toml` file.
-- `identifier`: [REQUIRED] A string that uniquely identifies your application,
-  in reverse-DNS form (for example, `"com.example.appname"` or
-  `"io.github.username.project"`). For OS X and iOS, this is used as the
-  bundle's `CFBundleIdentifier` value; for Windows, this is hashed to create
-  an application GUID.
-- `icon`: [OPTIONAL] The icons used for your application. This should be an array of file paths or globs (with images
-  in various sizes/formats); `tauri-bundler` will automatically convert between image formats as necessary for
-  different platforms. Supported formats include ICNS, ICO, PNG, and anything else that can be decoded by the
-  [`image`](https://crates.io/crates/image) crate. Icons intended for high-resolution (e.g. Retina) displays
-  should have a filename with `@2x` just before the extension (see example below).
-- `version`: [OPTIONAL] The version of the application. If this is not present, then it will use the `version`
-  value from your `Cargo.toml` file.
-- `resources`: [OPTIONAL] List of files or directories which will be copied to the resources section of the
-  bundle. Globs are supported.
-- `copyright`: [OPTIONAL] This contains a copyright string associated with your application.
-- `category`: [OPTIONAL] What kind of application this is. This can
-  be a human-readable string (e.g. `"Puzzle game"`), or a Mac OS X
-  LSApplicationCategoryType value
-  (e.g. `"public.app-category.puzzle-games"`), or a GNOME desktop
-  file category name (e.g. `"LogicGame"`), and `tauri-bundler` will
-  automatically convert as needed for different platforms.
-- `short_description`: [OPTIONAL] A short, one-line description of the application. If this is not present, then it
-  will use the `description` value from your `Cargo.toml` file.
-- `long_description`: [OPTIONAL] A longer, multi-line description of the application.
+- `name`:构建出的应用名称。若未提供,则使用 `Cargo.toml` 文件中的 `name` 值。
+- `identifier`:[必需] 唯一标识你的应用的字符串,采用反向 DNS 形式(例如 `"com.example.appname"` 或 `"io.github.username.project"`)。在 OS X 和 iOS 上,它用作 bundle 的 `CFBundleIdentifier` 值;在 Windows 上,它会被哈希以生成应用 GUID。
+- `icon`:[可选] 应用使用的图标。它应当是一个文件路径或通配符(glob)数组(包含各种尺寸/格式的图片);`tauri-bundler` 会根据不同平台的需要自动转换图片格式。支持的格式包括 ICNS、ICO、PNG,以及任何能被 [`image`](https://crates.io/crates/image) crate 解码的格式。面向高分辨率(如 Retina)显示屏的图标,文件名应在扩展名前带 `@2x`(见下方示例)。
+- `version`:[可选] 应用版本。若未提供,则使用 `Cargo.toml` 文件中的 `version` 值。
+- `resources`:[可选] 会被复制到 bundle 资源区的文件或目录列表。支持通配符。
+- `copyright`:[可选] 与你的应用关联的版权字符串。
+- `category`:[可选] 应用的类别。可以是人类可读的字符串(如 `"Puzzle game"`)、Mac OS X 的 LSApplicationCategoryType 值(如 `"public.app-category.puzzle-games"`),或 GNOME desktop 文件的类别名(如 `"LogicGame"`),`tauri-bundler` 会根据不同平台自动转换。
+- `short_description`:[可选] 应用的简短单行描述。若未提供,则使用 `Cargo.toml` 文件中的 `description` 值。
+- `long_description`:[可选] 应用较长、可多行的描述。
 
-### Debian-specific settings
+### Debian 专属设置
 
-These settings are used only when bundling `deb` packages.
+这些设置仅在打包 `deb` 包时使用。
 
-- `depends`: A list of strings indicating other packages (e.g. shared
-  libraries) that this package depends on to be installed. If present, this
-  forms the `Depends:` field of the `deb` package control file.
+- `depends`:字符串列表,指明本包安装时所依赖的其他包(例如共享库)。若提供,将构成 `deb` 包控制文件中的 `Depends:` 字段。
 
-### Mac OS X-specific settings
+### Mac OS X 专属设置
 
-These settings are used only when bundling `app` and `dmg` packages.
+这些设置仅在打包 `app` 和 `dmg` 包时使用。
 
-- `frameworks`: A list of strings indicating any Mac OS X frameworks that
-  need to be bundled with the app. Each string can either be the name of a
-  framework (without the `.framework` extension, e.g. `"SDL2"`), in which case
-  `tauri-bundler` will search for that framework in the standard install
-  locations (`~/Library/Frameworks/`, `/Library/Frameworks/`, and
-  `/Network/Library/Frameworks/`), or a path to a specific framework bundle
-  (e.g. `./data/frameworks/SDL2.framework`). Note that this setting just makes
-  `tauri-bundler` copy the specified frameworks into the OS X app bundle (under
-  `Foobar.app/Contents/Frameworks/`); you are still responsible for (1)
-  arranging for the compiled binary to link against those frameworks (e.g. by
-  emitting lines like `cargo:rustc-link-lib=framework=SDL2` from your
-  `build.rs` script), and (2) embedding the correct rpath in your binary
-  (e.g. by running `install_name_tool -add_rpath
-"@executable_path/../Frameworks" path/to/binary` after compiling).
-- `minimum_system_version`: A version string indicating the minimum Mac OS
-  X version that the bundled app supports (e.g. `"10.11"`). If you are using
-  this config field, you may also want have your `build.rs` script emit
-  `cargo:rustc-env=MACOSX_DEPLOYMENT_TARGET=10.11` (or whatever version number
-  you want) to ensure that the compiled binary has the same minimum version.
-- `license`: Path to the license file for the DMG bundle.
-- `exception_domain`: The exception domain to use on the macOS .app bundle. Allows communication to the outside world e.g. a web server you're shipping.
-- `provider_short_name`: If your Apple ID is connected to multiple teams, you have to specify the provider short name of the team you want to use to notarize your app. See [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) and search for `--list-providers` for more information how to obtain your provider short name.
+- `frameworks`:字符串列表,指明需要随应用一起打包的 Mac OS X 框架。每个字符串可以是框架名(不带 `.framework` 扩展名,如 `"SDL2"`),此时 `tauri-bundler` 会在标准安装位置(`~/Library/Frameworks/`、`/Library/Frameworks/` 和 `/Network/Library/Frameworks/`)搜索该框架;也可以是指向特定框架 bundle 的路径(如 `./data/frameworks/SDL2.framework`)。注意,该设置只是让 `tauri-bundler` 把指定框架复制进 OS X 应用包(位于 `Foobar.app/Contents/Frameworks/` 下);你仍需自行负责:(1) 让编译出的二进制链接这些框架(例如在 `build.rs` 脚本中输出 `cargo:rustc-link-lib=framework=SDL2` 这样的行),以及 (2) 在二进制中嵌入正确的 rpath(例如编译后运行 `install_name_tool -add_rpath "@executable_path/../Frameworks" path/to/binary`)。
+- `minimum_system_version`:版本字符串,指明打包后的应用支持的最低 Mac OS X 版本(如 `"10.11"`)。如果使用此配置字段,你可能还想让 `build.rs` 脚本输出 `cargo:rustc-env=MACOSX_DEPLOYMENT_TARGET=10.11`(或你想要的任意版本号),以确保编译出的二进制具有相同的最低版本要求。
+- `license`:DMG 包许可证文件的路径。
+- `exception_domain`:macOS .app 包使用的例外域名(exception domain)。允许与外界通信,例如你随应用分发的 Web 服务器。
+- `provider_short_name`:如果你的 Apple ID 关联了多个团队,必须指定你要用于公证应用的团队 provider short name。参见[自定义公证工作流](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow)并搜索 `--list-providers`,了解如何获取你的 provider short name。
 
-### Example `tauri.conf.json`:
+### `tauri.conf.json` 示例:
 
 ```json
 {
@@ -114,14 +80,12 @@ These settings are used only when bundling `app` and `dmg` packages.
 }
 ```
 
-## License
+## 许可证
 
-(c) 2017 - present, George Burton, Tauri-Apps Organization
+(c) 2017 - 至今,George Burton,Tauri-Apps Organization
 
-This program is licensed either under the terms of the
-[Apache Software License](http://www.apache.org/licenses/LICENSE-2.0), or the
-[MIT License](https://opensource.org/licenses/MIT).
+本程序采用 [Apache Software License](http://www.apache.org/licenses/LICENSE-2.0) 或 [MIT License](https://opensource.org/licenses/MIT) 之一授权。
 
--> note, for bundle_dmg we have included a BSD 3 licensed binary `seticon`.
+-> 注意:对于 bundle_dmg,我们收录了一个 BSD 3 许可的二进制 `seticon`。
 https://github.com/sveinbjornt/osxiconutils/blob/master/seticon.m
 `tools/rust/cargo-tauri-bundle/src/bundle/templates/seticon`
