@@ -1,120 +1,122 @@
-# Tauri Contributing Guide
+> 🌐 本文档由 [tauri-apps/tauri](https://github.com/tauri-apps/tauri) 翻译,英文原版见原项目。
 
-Hi! We, the maintainers, are really excited that you are interested in contributing to Tauri. Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](/.github/CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
+# Tauri 贡献指南
 
-- [Issue Reporting Guidelines](#issue-reporting-guidelines)
-- [Pull Request Guidelines](#pull-request-guidelines)
-- [Development Guide](#development-guide)
-- [AI Tool Policy](#ai-tool-policy)
+你好!我们(维护者团队)非常高兴你有兴趣为 Tauri 做贡献。不过在提交贡献之前,请先花点时间阅读[行为准则](/.github/CODE_OF_CONDUCT.md),以及与你打算做的贡献类型对应的章节:
 
-## Issue Reporting Guidelines
+- [Issue 报告指南](#issue-报告指南)
+- [Pull Request 指南](#pull-request-指南)
+- [开发指南](#开发指南)
+- [AI 工具政策](#ai-工具政策)
 
-- The issue list of this repo is **exclusively** for bug reports and feature requests. Non-conforming issues will be closed immediately.
+## Issue 报告指南
 
-- If you have a question, you can get quick answers from the [Tauri Discord chat](https://discord.gg/SpmNs4S).
+- 本仓库的 issue 列表**仅**用于 bug 报告和功能请求。不符合规范的 issue 会被立即关闭。
 
-- Try to search for your issue, it may have already been answered or even fixed in the development branch (`dev`).
+- 如果你有疑问,可以在 [Tauri Discord 聊天室](https://discord.gg/SpmNs4S)快速获得解答。
 
-- Check if the issue is reproducible with the latest stable version of Tauri. If you are using a pre-release, please indicate the specific version you are using.
+- 请先搜索一下你的 issue,它可能已经被回答过,甚至已经在开发分支(`dev`)中修复。
 
-- It is **required** that you clearly describe the steps necessary to reproduce the issue you are running into. Although we would love to help our users as much as possible, diagnosing issues without clear reproduction steps is extremely time-consuming and simply not sustainable.
+- 检查该问题在最新稳定版 Tauri 上是否可以复现。如果你使用的是预发布版本,请注明你所用的具体版本。
 
-- Use only the minimum amount of code necessary to reproduce the unexpected behavior. A good bug report should isolate specific methods that exhibit unexpected behavior and precisely define how expectations were violated. What did you expect the method or methods to do, and how did the observed behavior differ? The more precisely you isolate the issue, the faster we can investigate.
+- 你**必须**清楚描述复现该问题所需的具体步骤。虽然我们非常乐意尽可能帮助用户,但在没有清晰复现步骤的情况下诊断问题极其耗时,根本不可持续。
 
-- Issues with no clear repro steps will not be triaged. If an issue labeled "need repro" receives no further input from the issue author for more than 5 days, it will be closed.
+- 请只使用复现该异常行为所需的最少代码。一份好的 bug 报告应当隔离出表现异常的具体方法,并精确定义预期是如何被打破的:你原本期望这些方法做什么,实际观察到的行为又有什么不同?问题隔离得越精确,我们排查得越快。
 
-- If your issue is resolved but still open, don't hesitate to close it. In case you found a solution by yourself, it could be helpful to explain how you fixed it.
+- 没有清晰复现步骤的 issue 不会被分诊。如果带有 "need repro" 标签的 issue 超过 5 天没有收到作者的进一步反馈,就会被关闭。
 
-- Most importantly, we beg your patience: the team must balance your request against many other responsibilities — fixing other bugs, answering other questions, new features, new documentation, etc. The issue list is not paid support and we cannot make guarantees about how fast your issue can be resolved.
+- 如果你的问题已解决但 issue 仍然开着,请果断关闭它。如果是你自己找到了解决方案,说明一下修复方法会对其他人很有帮助。
 
-## Pull Request Guidelines
+- 最重要的是,恳请你保持耐心:团队必须在你的请求与众多其他事务之间取得平衡——修复其他 bug、回答其他问题、开发新功能、编写新文档等等。issue 列表不是付费技术支持,我们无法保证你的问题多快能被解决。
 
-- You have to [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+## Pull Request 指南
 
-- It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.
+- 你必须[对提交进行签名](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)。
 
-- If adding new feature:
-  - Provide convincing reason to add this feature. Ideally you should open a suggestion issue first and have it greenlighted before working on it.
+- 在 PR 开发过程中包含多个小提交没有问题——合并前我们会让 GitHub 自动 squash。
 
-- If fixing a bug:
-  - If you are resolving a special issue, add `(fix: #xxxx[,#xxx])` (#xxxx is the issue id) in your PR title for a better release log, e.g. `fix: update entities encoding/decoding (fix #3899)`.
-  - Provide detailed description of the bug in the PR, or link to an issue that does.
+- 如果是新增功能:
+  - 请给出添加该功能的充分理由。理想情况下,你应当先开一个建议类 issue 并获得许可,再动手实现。
 
-- If the PR is meant to be released, follow the instructions in `.changes/readme.md` to log your changes. ie. [readme.md](https://github.com/tauri-apps/tauri/blob/dev/.changes/README.md)
+- 如果是修复 bug:
+  - 如果你解决的是某个特定 issue,请在 PR 标题中加上 `(fix: #xxxx[,#xxx])`(#xxxx 是 issue 编号),以便生成更好的发布日志,例如 `fix: update entities encoding/decoding (fix #3899)`。
+  - 请在 PR 中详细描述该 bug,或链接到一个已详细描述的 issue。
 
-## Development Guide
+- 如果该 PR 需要随版本发布,请按照 `.changes/readme.md` 中的说明记录你的变更,即 [readme.md](https://github.com/tauri-apps/tauri/blob/dev/.changes/README.md)。
 
-**NOTE: If you have any question don't hesitate to ask in our Discord server. We try to keep this guide to up guide, but if something doesn't work let us know.**
+## 开发指南
 
-### General Setup
+**注意:如有任何疑问,欢迎随时在我们的 Discord 服务器里提问。我们会尽量保持本指南的时效性,但如果哪一步走不通,请告诉我们。**
 
-First, [join our Discord server](https://discord.gg/SpmNs4S) and let us know that you want to contribute. This way we can point you in the right direction and help ensure your contribution will be as helpful as possible.
+### 通用环境准备
 
-To set up your machine for development, follow the [Tauri setup guide](https://v2.tauri.app/start/prerequisites/) to get all the tools you need to develop Tauri apps. The only additional tool you may need is [PNPM](https://pnpm.io/), it is only required if you are developing the Node CLI or API packages (`packages/cli` and `packages/api`).
+首先,[加入我们的 Discord 服务器](https://discord.gg/SpmNs4S),让我们知道你想做贡献。这样我们可以为你指明方向,并确保你的贡献尽可能有帮助。
 
-Next, [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) and clone [this repository](https://github.com/tauri-apps).
-The development process varies depending on what part of Tauri you are contributing to, see the guides below for per-package instructions.
+要将你的机器配置为开发环境,请按照 [Tauri 环境搭建指南](https://v2.tauri.app/start/prerequisites/)安装开发 Tauri 应用所需的全部工具。你可能还需要的唯一额外工具是 [PNPM](https://pnpm.io/),只有在开发 Node CLI 或 API 包(`packages/cli` 和 `packages/api`)时才需要它。
 
-Some Tauri packages will be automatically built when running one of the examples. Others, however, will need to be built beforehand. To initialize, execute these commands in the repository root:
+接下来,[fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) 并克隆[本仓库](https://github.com/tauri-apps)。
+开发流程因你贡献的 Tauri 部分而异,各包的具体说明见下方指南。
+
+部分 Tauri 包会在运行某个示例时自动构建;另一些则需要预先构建。作为初始化,请在仓库根目录执行以下命令:
 
 ```bash
 pnpm install
 pnpm build
 ```
 
-### Overview
+### 总览
 
-See [Architecture](/ARCHITECTURE.md#major-components) for an overview of the packages in this repository.
+各包的整体情况请参阅[架构文档](/ARCHITECTURE.md#major-components)。
 
-### Developing Tauri Core and Related Components (Rust API, Macros, Codegen, and Utils)
+### 开发 Tauri Core 及相关组件(Rust API、Macros、Codegen 和 Utils)
 
-The code for the Rust crates, including the Core, Macros, Utils, WRY runtime, and a few more are located in the [main Tauri repository](https://github.com/tauri-apps/tauri/tree/dev/crates).
+Rust crate 的代码,包括 Core、Macros、Utils、WRY 运行时等,位于[主 Tauri 仓库](https://github.com/tauri-apps/tauri/tree/dev/crates)。
 
-The easiest way to test your changes is to use the [helloworld](https://github.com/tauri-apps/tauri/tree/dev/examples/helloworld) example app. It automatically rebuilds and uses your local copy of the Tauri core packages. Just run `cargo run --example helloworld` after making changes to test them out.
+测试改动最简单的方法是使用 [helloworld](https://github.com/tauri-apps/tauri/tree/dev/examples/helloworld) 示例应用。它会自动重新构建并使用你本地的 Tauri core 包副本。修改代码后只需运行 `cargo run --example helloworld` 即可验证。
 
-To test local changes against your own application simply point the Tauri create to your local repository. In `src-tauri/Cargo.toml` file change:
+要针对你自己的应用测试本地改动,只需让 Tauri 指向你本地仓库。在 `src-tauri/Cargo.toml` 中把:
 
 `tauri = { version = "2.1.1" }`
 
-to:
+改为:
 
 `tauri = { path = "path/to/local/tauri/crates/tauri" }`
 
-If any other crates depend on Tauri you will have to point them to the local repo as well.
+如果还有其他 crate 依赖 Tauri,你也需要把它们指向本地仓库。
 
-### Developing Tauri Bundler and Rust CLI
+### 开发 Tauri Bundler 与 Rust CLI
 
-The code for the bundler is located in [crates/tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler), and the code for the Rust CLI is located in [tauri-cli](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli).
-Running `cargo install --path .` in the Rust CLI directory will allow you to run `cargo tauri build` and `cargo tauri dev` anywhere, using the updated copy of the bundler and cli. You will have to run this command each time you make a change in either package.
-You can use `cargo install --path . --debug` to speed up test builds.
+bundler 的代码位于 [crates/tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler),Rust CLI 的代码位于 [tauri-cli](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli)。
+在 Rust CLI 目录中运行 `cargo install --path .`,即可在任何地方使用更新后的 bundler 和 cli 来执行 `cargo tauri build` 和 `cargo tauri dev`。这两个包每次改动后都需要重新执行该命令。
+你可以使用 `cargo install --path . --debug` 来加快测试构建速度。
 
-### Developing The Node.js CLI (`@tauri-apps/cli`)
+### 开发 Node.js CLI(`@tauri-apps/cli`)
 
-[`@tauri-apps/cli`](https://github.com/tauri-apps/tauri/tree/dev/packages/cli) is a small wrapper around `tauri-cli` so most changes should be happen in the Rust CLI (see above).
+[`@tauri-apps/cli`](https://github.com/tauri-apps/tauri/tree/dev/packages/cli) 只是 `tauri-cli` 的一个薄封装,因此大多数改动都应发生在 Rust CLI 中(见上文)。
 
-#### Building the documentation locally
+#### 本地构建文档
 
-You can build the Rust documentation locally running the following script:
+你可以在本地运行以下脚本来构建 Rust 文档:
 
 ```bash
 $ cargo +nightly doc --all-features --open
 ```
 
-### Developing the JS API
+### 开发 JS API
 
-The JS API provides bindings between the developer's JS in the Webview and the built-in Tauri APIs, written in Rust. Its code is located in [/packages/api](https://github.com/tauri-apps/tauri/tree/dev/packages/api).
-After making changes to the code, run `pnpm build` to build it. To test your changes, we recommend using the API example app, located in [/examples/api](https://github.com/tauri-apps/tauri/tree/dev/examples/api). It will automatically use your local copy of the JS API and provides a helpful UI to test the various commands.
+JS API 在开发者运行于 WebView 中的 JS 与用 Rust 编写的内置 Tauri API 之间提供绑定。其代码位于 [/packages/api](https://github.com/tauri-apps/tauri/tree/dev/packages/api)。
+修改代码后,运行 `pnpm build` 进行构建。要测试你的改动,我们推荐使用 API 示例应用,位于 [/examples/api](https://github.com/tauri-apps/tauri/tree/dev/examples/api)。它会自动使用你本地的 JS API 副本,并提供一个便于测试各种命令的 UI。
 
-## AI Tool Policy
+## AI 工具政策
 
-It takes a lot of time to review a Pull Request while it's very easy to make a nonsensical but plausible looking one using AI tools.
-It is unfair for other contributors and the reviewers to spend much of the time dealing with this, hence these rules:
+审阅一个 Pull Request 需要大量时间,而用 AI 工具生成一个看似合理实则毫无意义 的 PR 却非常容易。
+让其他贡献者和审阅者把大量时间耗在这上面是不公平的,因此定下以下规则:
 
-1. Review and test all LLM-generated content before submitting, you're the one responsible for it, not the AI.
-2. Don't use AI to respond to review comments (except for translations).
+1. 提交前必须审阅并测试所有 LLM 生成的内容,责任在你,而不是 AI。
+2. 不要用 AI 回复审阅意见(翻译除外)。
 
-We will close the Pull Request with an `ai-slop` tag if you fail to follow these rules.
+如果你不遵守这些规则,我们将给 PR 打上 `ai-slop` 标签并关闭。
 
-## Financial Contribution
+## 资金贡献
 
-Tauri is an MIT-licensed open source project. Its ongoing development can be supported via [GitHub Sponsors](https://github.com/sponsors/tauri-apps) or [Open Collective](https://opencollective.com/tauri). We prefer GitHub Sponsors as donations made are doubled through the matching fund program.
+Tauri 是一个采用 MIT 许可证的开源项目。你可以通过 [GitHub Sponsors](https://github.com/sponsors/tauri-apps) 或 [Open Collective](https://opencollective.com/tauri) 支持它的持续开发。我们更推荐 GitHub Sponsors,因为通过配捐计划,捐款金额会被翻倍。
